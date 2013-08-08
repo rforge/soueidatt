@@ -1,6 +1,0 @@
-export(funclust)
-export(mfpca)
-export(mfpcaPlot)
-export(plotfd)
-export(plotOC)
-useDynLib(Funclustering)
