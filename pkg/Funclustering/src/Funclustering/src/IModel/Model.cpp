@@ -338,19 +338,12 @@ void Model::mStep(bool dimIncrease) {
 		else
 			screeTest(k);
 
-
-		//fix empty class erreur
-		int rk=m_paramobj.r(k);
-/*
-		int eigenVectNumb=m_pca.scores.cols();
-		rk=min(rk,eigenVectNumb);
-*/
 		// Scores Update
-		m_paramobj.scores[k]=m_pca.scores.block(0,0,m_coefs.rows(),rk);
+		m_paramobj.scores[k]=m_pca.scores.block(0,0,m_coefs.rows(),m_paramobj.r(k));
 
 		//Weighted mean and weighted covariance operator calculation
 		VectorXd tmp;
-		for (int j=0;j<rk;j++){
+		for (int j=0;j<m_paramobj.r(k);j++){
 			/* m(k,j) is the mean of the jth column of the kth score matrix weighted
 			   by the kth column of the weight matrix
 			 */
@@ -411,18 +404,11 @@ void Model::mStep(VectorXi dimFixed){
 		functionalPca(r_init, m_weights.col(k));
 
 		// Scores Update
-		int rk=m_paramobj.r(k);
-/*
-// fix empty class problem
-		int eigenVectNumb=m_pca.scores.cols();
-		rk=min(rk,eigenVectNumb);
-*/
-		//m_paramobj.scores[k]=MatrixXd(m_coefs.rows(),rk);
-		m_paramobj.scores[k]=m_pca.scores.block(0,0,m_coefs.rows(),rk);
+		m_paramobj.scores[k]=m_pca.scores.block(0,0,m_coefs.rows(),m_paramobj.r(k));
 
 		//Weighted mean and weighted covariance operator calculation
 		VectorXd tmp;
-		for (int j=0;j<rk;j++){
+		for (int j=0;j<m_paramobj.r(k);j++){
 			/* m(k,j) is the mean of the jth column of the kth score matrix weighted
 			   by the kth column of the weight matrix
 			 */
@@ -478,33 +464,32 @@ void Model::eStep(){
 
 		for (int j=0;j<m_paramobj.r(k);j++){//j=1
 			double v=m_paramobj.V(k,j);
-			tmp=normalDistribution(m_paramobj.scores[k].col(j),m_paramobj.m(k,j),sqrt(v));
-			m_weights.col(k)=m_weights.col(k).cwiseProduct(tmp);
 
-			if((m_weights.col(k).array()==0.0).all()){m_empty=true;}
-
-		/*
-			// fix the probleme of empty class : we have to compute the formulas in the following else but
+			// fix the probleme of empty class : we have to compute the formulas in the following "else" but
 			//if v is nul then the std in input of normalDistribution will be =0, hence we will have a nan,
-			// so we make tmp=mean (variance=0 => v.a constante=mean), or mean=0 => tmp=0
+			// so we make tmp=mean (variance=0 => v.a constante=mean), or mean=0 => tmp=0 => m_weights.col(k)=0
 			if (v==0.0){
 				m_weights.col(k)=VectorXd::Constant(m_coefs.rows(),0.0);
+				break;
 			}
-
 			else{
 				tmp=normalDistribution(m_paramobj.scores[k].col(j),m_paramobj.m(k,j),sqrt(v));
 				m_weights.col(k)=m_weights.col(k).cwiseProduct(tmp);
 			}
-		*/
 		}
-	/*
-		// if the weigths is null for one class, then we make an equal weights for the curves in this class
-		if((m_weights.col(k).array()== 0.0).all()){
-			int n=m_weights.rows();
-			double tk=1e-5;//fix empty class erreur
-			m_weights.col(k)=VectorXd::Constant(n,tk);
+		// if tik is equal to zero for column(k), the the k-th class is empty
+		if((m_weights.col(k).array()==0.0).all()){m_empty=true;}
+	}
+
+	// check for infinty tik : if tik=Inf then we replace by tik=1 and tij=0 for j != k
+	for(int i=0;i<m_weights.rows();i++){
+		for(int k=0;k<m_nbClust;k++){
+			if(fabs(m_weights(i,k))==numeric_limits<double>::infinity()){
+				for(int j=0;j<m_nbClust;j++){m_weights(i,j)=0.0;}
+				m_weights(i,k)=1.0;
+				break;
+			}
 		}
-	*/
 	}
 
 	//normalization
@@ -519,6 +504,7 @@ void Model::eStep(){
 /// logliklihood
 
 void Model::logliklihood(){
+	double l_prev=m_loglik;
 	MatrixXd L(m_coefs.rows(),m_nbClust);
 	VectorXd tmp;
 	L=m_paramobj.prop.colwise().replicate(L.rows());
@@ -553,6 +539,8 @@ void Model::logliklihood(){
 	if (m_loglik !=m_loglik) {
 		m_loglik=- numeric_limits<double>::infinity() ;
 	}
+	// if m_loglik take = +Inf then we replace m_loglik by the last m_loglik calculated
+	if (m_loglik==numeric_limits<double>::infinity()){m_loglik=l_prev;}
 
 }
 
@@ -588,7 +576,8 @@ void Model::updateClusters(){
 		m_clusters(i)=maxIndex+1;
 	}
 
-	for (int k = 1; k < m_nbClust; ++k) {
+	// check for empty class : a k-th cluster is empty when it's index k is an absent value in m_clusters
+	for (int k = 1; k <= m_nbClust; ++k) {
 		if ((m_clusters.array() != k).all()) {
 			m_empty=true;
 			break;
