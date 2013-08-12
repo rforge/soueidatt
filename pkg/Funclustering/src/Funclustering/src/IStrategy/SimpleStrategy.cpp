@@ -66,10 +66,10 @@ void SimpleStrategy::run(bool dimIncrease, int nbIter){
 		 or let them change with the scree test
 		 */
 		m_algo -> run(dimIncrease);
-
+/*
 		//update clusters and chck if there is an empty class. here is the only place that the clusters membership is calculate
 		m_algo->getModel()->updateClusters();
-
+*/
 		//stores the new loglikelihood and the news dimensions
 		m_loglikTotal(iter)=m_algo->getModel()->getLoglik();
 		m_Rtotal.col(iter)=m_algo->getModel()->getParamobj().r;

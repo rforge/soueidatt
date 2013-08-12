@@ -14,11 +14,13 @@ EMAlgo::~EMAlgo() {
 void EMAlgo::run(bool dimIncrease){
 	m_model -> mStep(dimIncrease);
 	m_model -> eStep();
+	m_model -> updateClusters();
 	m_model -> logliklihood();
 }
 
 void EMAlgo::run(VectorXi dimFixed){
 	m_model -> mStep(dimFixed);
 	m_model -> eStep();
+	m_model -> updateClusters();
 	m_model -> logliklihood();
 }

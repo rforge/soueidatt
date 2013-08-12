@@ -164,7 +164,7 @@ funclust <- function(fd,K,thd=0.05,increaseDimension=FALSE,hard=FALSE,fixedDimen
   #check if there is an empty class
 	if (outpobj@empty==TRUE){
     warning("Convergence of the algorithm to a solution with at least one empty cluster.
-            Restart or a choose a smaller value for K.")
+            Restart or a choose a smaller value for K = ",K)
 	}
   # stores the result in a list
 	outputList=list(tik=outpobj@tik, cls=outpobj@cls, proportions=outpobj@proportions,
