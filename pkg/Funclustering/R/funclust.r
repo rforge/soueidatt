@@ -59,7 +59,7 @@
 #' @export 
 #' @examples 
 #' 
-#' data(growthfd)
+#' data(fd)
 #' # with varying dimensions (according to the results of the scree test) 
 #' res=funclust(fd,K=2)
 #' summary(res)
