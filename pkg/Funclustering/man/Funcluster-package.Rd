@@ -37,9 +37,11 @@ J.Jacques and C.Preda (2013), Model-based clustering of multivariate functional 
  
  # -- Build the curves --
  temperature=CanadianWeather$dailyAv[,,"Temperature.C"]
- CWfd1 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+ CWfd1 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis,
+  Lfdobj=harmaccelLfd, lambda=1e-2)$fd
  precipitation=CanadianWeather$dailyAv[,,"Precipitation.mm"]
- CWfd2 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+ CWfd2 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis,
+  Lfdobj=harmaccelLfd, lambda=1e-2)$fd
  
  # -- the multivariate functional data object --  
  CWfd=list(CWfd1,CWfd2) 
