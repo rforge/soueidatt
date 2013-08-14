@@ -34,7 +34,7 @@
   the parameter tik.
 }
 \examples{
-data(growthfd)
+data(fd)
 pca=mfpca(fd,nharm=2)
 summary(pca)
 }

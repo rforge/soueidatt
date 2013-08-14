@@ -24,7 +24,7 @@
   for univariate functional data.
 }
 \examples{
-data(growthfd)
+data(fd)
 cls=c(rep(1,39),rep(2,54)) #there is 39 boys and 54 girls in this data
 plotfd(fd,col=cls)
 }
