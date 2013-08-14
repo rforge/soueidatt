@@ -24,9 +24,11 @@
 #' 
 #' # -- Build the curves ---
 #' temp=CanadianWeather$dailyAv[,,"Temperature.C"]
-#' CWfd1 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+#' CWfd1 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, 
+#' Lfdobj=harmaccelLfd, lambda=1e-2)$fd
 #' precip=CanadianWeather$dailyAv[,,"Precipitation.mm"]
-#' CWfd2 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+#' CWfd2 <- smooth.basisPar(CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, 
+#' Lfdobj=harmaccelLfd, lambda=1e-2)$fd
 #' 
 #' CWfd=list(CWfd1,CWfd2) 
 #' 
