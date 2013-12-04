@@ -3,7 +3,8 @@ Type: Package
 Title: A package for functional data clustering.
 Version: 0.9.2
 Date: 2013-08-09
-Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>
+Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*
+Copyright: Author for the main library, and dist/COPYRIGHT for Eigen library
 Maintainer: Julien Jacques <julien.jacques@inria.fr>
 Description: This packages proposes a model-based clustering algorithm for
     multivariate functional data. The parametric mixture model, based on the
