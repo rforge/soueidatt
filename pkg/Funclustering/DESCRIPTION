@@ -1,7 +1,7 @@
 Package: Funclustering
 Type: Package
 Title: A package for functional data clustering.
-Version: 0.9.2
+Version: 1.0
 Date: 2013-08-09
 Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*
 Copyright: Author for the main library, and dist/COPYRIGHT for Eigen library
@@ -12,7 +12,7 @@ Description: This packages proposes a model-based clustering algorithm for
     multivariate functional PCA, is estimated by an EM-like algorithm. The main
     advantage of the proposed algorithm is its ability to take into account the
     dependence among curves.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENSE
 Depends:
     Rcpp (>= 0.10.3),
     fda (>= 2.2.6),

@@ -1,5 +1,5 @@
 include $(R_HOME)/etc${R_ARCH}/Makeconf
-MYCXXFLAGS = -DNDEBUG -DRPACKAGE -std=c++0x
+MYCXXFLAGS = -DNDEBUG -DRPACKAGE
 LIB = libFunclustering.a
 SRCS = $(wildcard src/IAlgo/*.cpp\
                   src/IModel/*.cpp\

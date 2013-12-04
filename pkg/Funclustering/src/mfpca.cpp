@@ -8,7 +8,6 @@
 #include <Rcpp.h>
 #include <map>
 #include "Eigen/Eigen"
-#include <iostream>
 #include "Funclustering/src/IModel/IModel.h"
 #include "Funclustering/src/IModel/Model.h"
 #include "Funclustering/src/IAlgo/IAlgo.h"
