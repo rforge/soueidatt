@@ -133,6 +133,9 @@ void Model::functionalPca(int nHarm, VectorXd weights) {
     }
 }
 
+typedef std::pair<double, int> mypair;
+bool comparator (const mypair& l, const mypair& r)
+   {return l.first > r.first;}
 
 /*
  * This function run the method functionalPca and in addition update the parameter m_pca.harmonics
@@ -188,54 +191,72 @@ void Model::mfpca(int nHarm, VectorXd weights){
 	// eigen decomposition
 	EigenSolver<MatrixXd> eV(V);
 	MatrixXd c=eV.eigenvectors().real();//eigen vectors
-    VectorXd val=eV.eigenvalues().real();//eigenvalue
-    VectorXd vp=val/val.sum();//varprop
+  VectorXd val=eV.eigenvalues().real();//eigenvalue
+  VectorXd vp=val/val.sum();//varprop
+  
+  std::vector<mypair> indexVar(val.size());
+  // sorting eigenvalues
+  for (int i = 0; i < vp.size(); ++i)
+  {
+    indexVar[i] = mypair(vp(i), i);
+  }
+  std::sort(indexVar.begin(), indexVar.end(), comparator);
+  // computing reordered eigenvalues and eigenvectors
+  VectorXd val_ord(val.size());
+  VectorXd vp_ord(vp.size());
+  MatrixXd c_ord(c.rows(), c.cols());
+  for (int i = 0; i < indexVar.size(); ++i)
+  {
+    val_ord  [i] = val  [indexVar[i].second];
+    vp_ord   [i] = vp   [indexVar[i].second];
+    c_ord.col(i) = c.col(indexVar[i].second);
+  }
 
-    // statement val.head(nHarm) requires that val.size() > nHarm
-    if(val.size()>nHarm){
-    	//we keep the number eigenvalues requested
-    	m_pca.values=val.head(nHarm);//values
-    	m_pca.varprop=vp.head(nHarm);
-    }
-    //else: we take all eigenvalue (so in this case we will have less than the eigenvalues requested)
-    else{
-    	m_pca.values=val;
-    	m_pca.varprop=vp;
-    }
+  // statement val.head(nHarm) requires that val.size() > nHarm
+  if(val.size()>nHarm){
+  	//we keep the number eigenvalues requested
+  	m_pca.values =val_ord.head(nHarm);//values
+  	m_pca.varprop=vp_ord .head(nHarm);
+  }
+  //else: we take all eigenvalue (so in this case we will have less than the eigenvalues requested)
+  else{
+  	m_pca.values =val_ord;
+  	m_pca.varprop=vp_ord ;
+  }
 
-    // Scores matrix
-    m_pca.scores=c;
+  // Scores matrix
+  m_pca.scores=c;
 
-	/* Since we keep in the eigen decomposition only curves with acceptable weights,
-	   the dimension of the score matrix may be incoherent with the subsequent computation,
-	   especially the number of rows. In fact in the mStep we work with the columns of the matrix scores
-	   to make some product with another vector or columns with size equal to m_coefs.rows().
-	   So we have to resize the number of rows of scores matrix by adding the required rows=zeros.
-    */
-    if (c.rows() != m_coefs.rows()){
-    	m_pca.scores.conservativeResize(m_coefs.rows(),c.cols());
-    	for (int i=c.rows()-1; i<m_coefs.rows(); i++){
-    		m_pca.scores.row(i).setZero();
-    	}
-    }
+/* Since we keep in the eigen decomposition only curves with acceptable weights,
+   the dimension of the score matrix may be incoherent with the subsequent computation,
+   especially the number of rows. In fact in the mStep we work with the columns of the matrix scores
+   to make some product with another vector or columns with size equal to m_coefs.rows().
+   So we have to resize the number of rows of scores matrix by adding the required rows=zeros.
+  */
+  if (c.rows() != m_coefs.rows()){
+  	m_pca.scores.conservativeResize(m_coefs.rows(),c.cols());
+  	for (int i=c.rows()-1; i<m_coefs.rows(); i++){
+  		m_pca.scores.row(i).setZero();
+  	}
+  }
 
 //      End of the code of functional pca           //
-    // harmonics caluculation
-         MatrixXd V1;
-         V1=A.transpose()*weightsAccept.asDiagonal()*A*m_basisProd;
+  // harmonics caluculation
+       MatrixXd V1;
+       V1=A.transpose()*weightsAccept.asDiagonal()*A*m_basisProd;
 
-         // eigen decomposition
-         EigenSolver<MatrixXd> eV1(V1);
-     	MatrixXd c1=eV1.eigenvectors().real();//eigen vectors
-     	VectorXd vp1=eV1.eigenvalues().real();
+       // eigen decomposition
+       EigenSolver<MatrixXd> eV1(V1);
+   	MatrixXd c1=eV1.eigenvectors().real();//eigen vectors
+   	VectorXd vp1=eV1.eigenvalues().real();
 
-     	// if the number of columns of c1 is greater than nHarm we keep the required nHarm harmonics
-     	if(c1.cols() > nHarm){
-     		m_pca.harmonics=c1.block(0,0,c1.rows(),nHarm);
-     	}
-     	else{ // we take all c1 and in this case we can have a number of harmonics less than the requested
-     		m_pca.harmonics=c1;
-     	}
+   	// if the number of columns of c1 is greater than nHarm we keep the required nHarm harmonics
+   	if(c1.cols() > nHarm){
+   		m_pca.harmonics=c1.block(0,0,c1.rows(),nHarm);
+   	}
+   	else{ // we take all c1 and in this case we can have a number of harmonics less than the requested
+   		m_pca.harmonics=c1;
+   	}
 }
 
 /*
