@@ -261,20 +261,36 @@ void Model::mfpca(int nHarm, VectorXd weights){
 
 //      End of the code of functional pca           //
   // harmonics caluculation
-       MatrixXd V1;
-       V1=A.transpose()*weightsAccept.asDiagonal()*A*m_basisProd;
+    MatrixXd V1;
+    V1=A.transpose()*weightsAccept.asDiagonal()*A*m_basisProd;
 
-       // eigen decomposition
-       EigenSolver<MatrixXd> eV1(V1);
+    // eigen decomposition
+    EigenSolver<MatrixXd> eV1(V1);
    	MatrixXd c1=eV1.eigenvectors().real();//eigen vectors
    	VectorXd vp1=eV1.eigenvalues().real();
 
+    std::vector<mypair> indexVar1(vp1.size());
+    // sorting eigenvalues
+    for (int i = 0; i < vp1.size(); ++i)
+    {
+      indexVar1[i] = mypair(vp1(i), i);
+    }
+    std::sort(indexVar1.begin(), indexVar1.end(), comparator);
+    // computing reordered eigenvalues and eigenvectors
+    VectorXd vp1_ord(vp1.size());
+    MatrixXd c1_ord(c1.rows(), c1.cols());
+    for (int i = 0; i < indexVar1.size(); ++i)
+    {
+      vp1_ord   [i] = vp1   [indexVar1[i].second];
+      c1_ord.col(i) = c1.col(indexVar1[i].second);
+    }    
+
    	// if the number of columns of c1 is greater than nHarm we keep the required nHarm harmonics
-   	if(c1.cols() > nHarm){
-   		m_pca.harmonics=c1.block(0,0,c1.rows(),nHarm);
+   	if(c1_ord.cols() > nHarm){
+   		m_pca.harmonics = c1_ord.block(0, 0, c1_ord.rows(), nHarm);
    	}
    	else{ // we take all c1 and in this case we can have a number of harmonics less than the requested
-   		m_pca.harmonics=c1;
+   		m_pca.harmonics = c1_ord;
    	}
 }
 
