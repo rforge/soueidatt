@@ -617,14 +617,14 @@ void Model::setEmpty(bool empty){
  * is in the second interval [1/3,2/3[.
  */
 void Model::generateHardWeights(){
+	srand(time(NULL));
 	int K=m_nbClust;
 	int n=m_coefs.rows();
 	m_weights=MatrixXd::Zero(n,K);
+	int rand1;
 	for (int i=0; i< n; i++){
-		srand(time(NULL));
-	  	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	    std::default_random_engine generator (seed);
-	    double uniformNumber = std::generate_canonical<double,std::numeric_limits<double>::digits>(generator);
+		rand1=rand();
+		double uniformNumber=double(rand1)/double(RAND_MAX);
 	    for (int j = 0; j < K; ++j) {
 		 	double prob=double(j+1)/double(K);
 		    if ( uniformNumber < prob) {
@@ -647,25 +647,25 @@ void Model::generateHardWeights(){
  *  then T(i,1)=0.1, T(i,2)=0.5, T(i,3)=0.4.
  */
 void Model::generateSoftWeights(){
+	srand(time(NULL));
 	int K=m_nbClust;
 	int n=m_coefs.rows();
+	int rand1;
 	m_weights=MatrixXd(n,K);
+	vector<double> unifNumbers(K+1);
+	unifNumbers[0]=0.0;
+	unifNumbers[K]=1.0;
 	for (int i = 0; i < n; ++i) {
-		vector<double> unifNumbers(K+1);
-		unifNumbers[0]=0.0;
-		unifNumbers[K]=1.0;
-		for (int j = 0; j < K-1; ++j) {
-			srand(time(NULL));
-			unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-			std::default_random_engine generator (seed);
-			unifNumbers[j]=std::generate_canonical<double,std::numeric_limits<double>::digits>(generator);
+		for (int j = 1; j < K; ++j) {
+			rand1=rand();
+			unifNumbers[j]=((double) rand1 / (RAND_MAX));
 		}
 		stable_sort(unifNumbers.begin(),unifNumbers.end());
-
 		for (int j = 0; j < K; ++j) {
 			m_weights(i,j)=unifNumbers[j+1]-unifNumbers[j];
 		}
 	}
 }
+
 
 

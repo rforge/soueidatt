@@ -9,7 +9,6 @@
 #' product between these basis functions. 
 #' 
 cppUniData <- function(fd) {
-	library(fda)
 	coefs=t(fd$coefs)
 	basisProd=inprod(fd$basis,fd$basis)
 	fdData=list(coefs=coefs,basisProd=basisProd)
@@ -29,7 +28,6 @@ cppUniData <- function(fd) {
 #' 
 cppMultiData <-function(mfd) {
 	#mfd is a list of functional data (mfd=list(fd_1,fd_2,...,fd_dim))
-	library(fda)
 	nbasis=c();
 	dim=length(mfd)
 	for (i in 1:dim) {

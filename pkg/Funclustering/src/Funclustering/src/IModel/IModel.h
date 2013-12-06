@@ -2,12 +2,12 @@
 #define IMODEL_H_
 
 #include "../../../Eigen/Eigen"
-#include <iostream>
 #include <math.h>
-// #include <random>
-// #include <chrono>
 #include <limits>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <algorithm>
 using namespace Eigen;
 using namespace std;
