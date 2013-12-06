@@ -139,8 +139,13 @@ void Model::functionalPca(int nHarm, VectorXd weights) {
   	m_pca.varprop=vp_ord ;
   }
 
-  // Scores matrix
-  m_pca.scores=c;
+  // if the number of columns of c1 is greater than nHarm we keep the required nHarm scores
+   if(c_ord.cols() > nHarm){
+ 		m_pca.scores = c_ord.block(0, 0, c_ord.rows(), nHarm);
+ 	}
+ 	else{ // we take all c1 and in this case we can have a number of harmonics less than the requested
+ 		m_pca.scores = c_ord;
+ 	}
 
 /* Since we keep in the eigen decomposition only curves with acceptable weights,
    the dimension of the score matrix may be incoherent with the subsequent computation,
@@ -148,9 +153,9 @@ void Model::functionalPca(int nHarm, VectorXd weights) {
    to make some product with another vector or columns with size equal to m_coefs.rows().
    So we have to resize the number of rows of scores matrix by adding the required rows=zeros.
   */
-  if (c.rows() != m_coefs.rows()){
+  if (c_ord.rows() != m_coefs.rows()){
   	m_pca.scores.conservativeResize(m_coefs.rows(),c.cols());
-  	for (int i=c.rows()-1; i<m_coefs.rows(); i++){
+  	for (int i=c_ord.rows()-1; i<m_coefs.rows(); i++){
   		m_pca.scores.row(i).setZero();
   	}
   }
@@ -243,8 +248,13 @@ void Model::mfpca(int nHarm, VectorXd weights){
   	m_pca.varprop=vp_ord ;
   }
 
-  // Scores matrix
-  m_pca.scores=c;
+  // if the number of columns of c1 is greater than nHarm we keep the required nHarm scores
+ 	if(c_ord.cols() > nHarm){
+ 		m_pca.scores = c_ord.block(0, 0, c_ord.rows(), nHarm);
+ 	}
+ 	else{ // we take all c1 and in this case we can have a number of harmonics less than the requested
+ 		m_pca.scores = c_ord;
+ 	}
 
 /* Since we keep in the eigen decomposition only curves with acceptable weights,
    the dimension of the score matrix may be incoherent with the subsequent computation,
@@ -252,9 +262,9 @@ void Model::mfpca(int nHarm, VectorXd weights){
    to make some product with another vector or columns with size equal to m_coefs.rows().
    So we have to resize the number of rows of scores matrix by adding the required rows=zeros.
   */
-  if (c.rows() != m_coefs.rows()){
+  if (c_ord.rows() != m_coefs.rows()){
   	m_pca.scores.conservativeResize(m_coefs.rows(),c.cols());
-  	for (int i=c.rows()-1; i<m_coefs.rows(); i++){
+  	for (int i=c_ord.rows()-1; i<m_coefs.rows(); i++){
   		m_pca.scores.row(i).setZero();
   	}
   }
