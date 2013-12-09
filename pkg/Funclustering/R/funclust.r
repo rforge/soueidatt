@@ -174,12 +174,45 @@ funclust <- function(fd,K,thd=0.05,increaseDimension=FALSE,hard=FALSE,fixedDimen
     warning("Convergence of the algorithm to a solution with at least one empty cluster.
             Restart or a choose a smaller value for K = ",K)
 	}
+
+  meanList <- list()
+	#creating mean output objects : meanj : mean curve class j
+	if(class(fd) == "fd"){
+	 	mean1       = fd
+	  mean1$coefs = fd$coefs %*% outpobj@tik[,1] / sum(outpobj@tik[,1])           
+	  mean1$reps  = "mean1"  
+	  mean2       = fd
+	  mean2$coefs = fd$coefs %*% outpobj@tik[,2] / sum(outpobj@tik[,2])            
+	  mean2$reps  = "mean2"
+	  
+    meanList[[1]] <- list(mean1, mean2)
+	}
+	else{
+    for (i in 1:length(fd)){
+      mean1       = fd[[i]]
+      mean1$coefs = fd[[i]]$coefs %*% outpobj@tik[,1] / sum(outpobj@tik[,1])           
+      mean1$reps  = "mean1"  
+      mean2       = fd[[i]]
+      mean2$coefs = fd[[i]]$coefs %*% outpobj@tik[,2] / sum(outpobj@tik[,2])            
+      mean2$reps  = "mean2"
+      
+      meanList[[i]] <- list(mean1, mean2)
+    }
+	}
+  
   # stores the result in a list
-	outputList=list(tik=outpobj@tik, cls=outpobj@cls, proportions=outpobj@proportions,
-			loglikelihood=outpobj@loglikelihood, loglikTotal=outpobj@loglikTotal,
-			aic=outpobj@aic, bic=outpobj@bic, icl=outpobj@icl,
-			dimensions=outpobj@dimensions, dimTotal=outpobj@dimTotal,
-			V=V
+	outputList = list(tik           = outpobj@tik,
+                    cls           = outpobj@cls,
+	                  proportions   = outpobj@proportions,
+	                  loglikelihood = outpobj@loglikelihood,
+	                  loglikTotal   = outpobj@loglikTotal,
+	                  aic           = outpobj@aic,
+	                  bic           = outpobj@bic,
+	                  icl           = outpobj@icl,
+	                  dimensions    = outpobj@dimensions,
+	                  dimTotal      = outpobj@dimTotal,
+	                  V             = V,
+	                  meanList      = meanList
 	)
 	return(outputList)
 }
