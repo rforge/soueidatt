@@ -178,27 +178,27 @@ funclust <- function(fd,K,thd=0.05,increaseDimension=FALSE,hard=FALSE,fixedDimen
   meanList <- list()
 	#creating mean output objects : meanj : mean curve class j
 	if(class(fd) == "fd"){
-	 	mean1       = fd
-	  mean1$coefs = fd$coefs %*% outpobj@tik[,1] / sum(outpobj@tik[,1])           
-	  mean1$reps  = "mean1"  
-	  mean2       = fd
-	  mean2$coefs = fd$coefs %*% outpobj@tik[,2] / sum(outpobj@tik[,2])            
-	  mean2$reps  = "mean2"
-	  
-    meanList[[1]] <- list(mean1, mean2)
+    tempList <- list()
+    for (currClass in 1:K){
+      mean1       = fd
+      mean1$coefs = fd$coefs %*% outpobj@tik[, currClass] / sum(outpobj@tik[, currClass])
+      mean1$reps  = paste("mean", currClass, sep="")
+      tempList[[currClass]] <- mean1
+    }
+    meanList[[1]] <- tempList
 	}
 	else{
     for (i in 1:length(fd)){
-      mean1       = fd[[i]]
-      mean1$coefs = fd[[i]]$coefs %*% outpobj@tik[,1] / sum(outpobj@tik[,1])           
-      mean1$reps  = "mean1"  
-      mean2       = fd[[i]]
-      mean2$coefs = fd[[i]]$coefs %*% outpobj@tik[,2] / sum(outpobj@tik[,2])            
-      mean2$reps  = "mean2"
-      
-      meanList[[i]] <- list(mean1, mean2)
+      tempList <- list()
+      for (currClass in 1:K){
+        mean1       = fd[[i]]
+        mean1$coefs = fd[[i]]$coefs %*% outpobj@tik[, currClass] / sum(outpobj@tik[, currClass])
+        mean1$reps  = paste("mean", currClass, sep="")
+        tempList[[currClass]] <- mean1
+      }
+      meanList[[i]] <- tempList
     }
-	}
+  }
   
   # stores the result in a list
 	outputList = list(tik           = outpobj@tik,
