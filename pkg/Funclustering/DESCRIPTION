@@ -1,7 +1,7 @@
 Package: Funclustering
 Type: Package
 Title: A package for functional data clustering.
-Version: 1.0
+Version: 1.0.1
 Date: 2013-12-20
 Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*
 Copyright: Author for the main library, and dist/COPYRIGHT for Eigen library
