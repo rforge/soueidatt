@@ -13,10 +13,20 @@ Description: This packages proposes a model-based clustering algorithm for
     advantage of the proposed algorithm is its ability to take into account the
     dependence among curves.
 License: GPL (>= 2) | file LICENSE
-Depends: Rcpp (>= 0.10.3), fda (>= 2.2.6), methods(>= 2.15.1)
+Depends:
+    Rcpp (>= 0.10.3),
+    fda (>= 2.2.6),
+    methods(>= 2.15.1)
 LinkingTo: Rcpp
-Collate: 'cpp_data.R' 'funclust.r' 'input.R' 'output.R' 'plot.R'
-        'mfpca.R' 'harmCut.r' 'mfpcaPlot.R'
+Collate:
+    'cpp_data.R'
+    'funclust.r'
+    'input.R'
+    'output.R'
+    'plot.R'
+    'mfpca.R'
+    'harmCut.r'
+    'mfpcaPlot.R'
 Packaged: 2013-08-23 16:01:34 UTC; soueidat
 NeedsCompilation: yes
 Repository: CRAN
