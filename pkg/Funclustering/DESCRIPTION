@@ -14,10 +14,10 @@ Description: This packages proposes a model-based clustering algorithm for
     dependence among curves.
 License: GPL (>= 2)
 Depends:
-    Rcpp (>= 0.10.3),
-    RcppEigen,
     fda (>= 2.2.6),
-    methods(>= 2.15.1)
+    R (>= 2.15.1)
+Imports:
+    Rcpp (>= 0.10.3)
 LinkingTo: Rcpp, RcppEigen
 SystemRequirements: GNU make
 Collate:

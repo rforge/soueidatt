@@ -1,5 +1,5 @@
 include $(R_HOME)/etc${R_ARCH}/Makeconf
-MYCXXFLAGS = -DNDEBUG -DRPACKAGE
+MYCXXFLAGS = -DNDEBUG -DRPACKAGE $(shell $(R_HOME)/bin/Rscript -e "cat(RcppEigen:::RcppEigenCxxFlags())")
 LIB = libFunclustering.a
 SRCS = $(wildcard src/IAlgo/*.cpp\
                   src/IModel/*.cpp\
@@ -7,7 +7,7 @@ SRCS = $(wildcard src/IAlgo/*.cpp\
 
 OBJS= $(SRCS:%.cpp=%.o)
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) ${CPICFLAGS} $(MYCXXFLAGS) $(shell $(R_HOME)/bin/Rscript -e "cat(RcppEigen:::RcppEigenCxxFlags())") $< -c -o $@
+	$(CXX) $(CXXFLAGS) ${CPICFLAGS} $(MYCXXFLAGS) $< -c -o $@
 	
 lib: $(LIB)
 
