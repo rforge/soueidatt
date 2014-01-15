@@ -3,7 +3,8 @@ Type: Package
 Title: A package for functional data clustering.
 Version: 1.0.1
 Date: 2013-12-20
-Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*
+Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*.
+    The authors of Eigen for the included version of Eigen.
 Copyright: For Funclustering, Mohamed Soueidatt. For
     Eigen, author list is available at:
     http://eigen.tuxfamily.org/index.php?title=Main_Page#Credits.
