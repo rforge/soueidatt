@@ -15,7 +15,8 @@ Description: This packages proposes a model-based clustering algorithm for
 License: GPL (>= 2)
 Depends:
     fda (>= 2.2.6),
-    R (>= 2.15.1)
+    R (>= 2.15.1),
+    methods
 Imports:
     Rcpp (>= 0.10.3)
 LinkingTo: Rcpp, RcppEigen
