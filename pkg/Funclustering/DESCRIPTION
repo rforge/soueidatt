@@ -4,7 +4,10 @@ Title: A package for functional data clustering.
 Version: 1.0.1
 Date: 2013-12-20
 Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*
-Copyright: Author for the main library, and dist/COPYRIGHT for Eigen library
+Copyright: For Funclustering, Mohamed Soueidatt. For
+    Eigen, author list is available at:
+    http://eigen.tuxfamily.org/index.php?title=Main_Page#Credits.
+    Eigen licences are available at inst/COPYRIGHTS.
 Maintainer: Vincent KUBICKI <vincent.kubicki@inria.fr>
 Description: This packages proposes a model-based clustering algorithm for
     multivariate functional data. The parametric mixture model, based on the
