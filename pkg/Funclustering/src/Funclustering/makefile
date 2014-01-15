@@ -7,7 +7,7 @@ SRCS = $(wildcard src/IAlgo/*.cpp\
 
 OBJS= $(SRCS:%.cpp=%.o)
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) ${CPICFLAGS} $(MYCXXFLAGS) $< -c -o $@
+	$(CXX) $(CXXFLAGS) ${CPICFLAGS} $(MYCXXFLAGS) $(shell $(R_HOME)/bin/Rscript -e "cat(RcppEigen:::RcppEigenCxxFlags())") $< -c -o $@
 	
 lib: $(LIB)
 

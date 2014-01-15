@@ -4,11 +4,7 @@ Title: A package for functional data clustering.
 Version: 1.0.1
 Date: 2013-12-20
 Author: Mohamed Soueidatt <mohamed.soueidatt@inria.fr>, <msoueidatt@gmail.com>*.
-    The authors of Eigen for the included version of Eigen.
-Copyright: For Funclustering, Mohamed Soueidatt. For
-    Eigen, author list is available at:
-    http://eigen.tuxfamily.org/index.php?title=Main_Page#Credits.
-    Eigen licences are available at inst/COPYRIGHTS.
+Copyright: Mohamed Soueidatt
 Maintainer: Vincent KUBICKI <vincent.kubicki@inria.fr>
 Description: This packages proposes a model-based clustering algorithm for
     multivariate functional data. The parametric mixture model, based on the
@@ -16,12 +12,14 @@ Description: This packages proposes a model-based clustering algorithm for
     multivariate functional PCA, is estimated by an EM-like algorithm. The main
     advantage of the proposed algorithm is its ability to take into account the
     dependence among curves.
-License: GPL (>= 2) | file LICENSE
+License: GPL (>= 2)
 Depends:
     Rcpp (>= 0.10.3),
+    RcppEigen,
     fda (>= 2.2.6),
     methods(>= 2.15.1)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppEigen
+SystemRequirements: GNU make
 Collate:
     'cpp_data.R'
     'funclust.r'
