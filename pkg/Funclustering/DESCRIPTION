@@ -6,7 +6,8 @@ Date: 2019-04-10
 Authors@R: c(person("Mohamed", "Soueidatt", role = "aut", email = "msoueidatt@gmail.com"),
              person("Cristian", "Preda", role = c("aut", "cre"), email = "cristian.preda@inria.fr"),
              person("Julien", "Jacques", role = "aut"),
-             person("Vincent", "Kubicki", role = "ctb"))
+             person("Vincent", "Kubicki", role = "ctb"),
+             person("Quentin", "Grimonprez", role = "ctb"))
 Copyright: Inria
 Description: This package proposes a model-based clustering algorithm for
     multivariate functional data. The parametric mixture model, based on the
