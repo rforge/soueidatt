@@ -1,7 +1,7 @@
 Package: Funclustering
 Type: Package
 Title: Functional Data Clustering
-Version: 1.0.2
+Version: 1.0.3
 Date: 2019-04-10
 Authors@R: c(person("Mohamed", "Soueidatt", role = "aut", email = "msoueidatt@gmail.com"),
              person("Cristian", "Preda", role = c("aut", "cre"), email = "cristian.preda@inria.fr"),
