@@ -1,20 +1,18 @@
 
 #'
 #' This function plots the functional pca. 
+#' 
 #' @title Plot multivariate functional pca
 #' 
 #' 
 #' @param pca is the result of mfpca. In the univariate case mfpcaPlot use the package fda 
 #' and will be similar to it's function "plot.pca.fd". 
 #' In multivariate functional pca, we will make a graphic window for each dimension.
-#' 
 #' @param grid specify how to divide the graphics window. grid=c(n,m) divided the widow in to n lines and
 #' m columns. If user don't specify grid then he must enter <Enter> to pass to the next graphic.
 #' 
 #' 			
-#' @export 
 #' @examples 
-#' 
 #' # Multivariate
 #' # ---------  CanadianWeather (data from the package fda) --------
 #' CWtime<- 1:365
@@ -37,9 +35,8 @@
 #' pca=mfpca(CWfd,nharm=4)
 #' mfpcaPlot(pca,grid=c(2,2))
 #' 
-#' @useDynLib Funclustering
-
-mfpcaPlot <- function(pca,grid=c()) {
+#' @export 
+mfpcaPlot <- function(pca, grid = c()) {
 	# if we have an univariate functional data, we plot the pca using pca.fd
 	if (class(pca)=="pca.fd"){
 		#if the user don't specify grid, he must enter <Enter> to pass to the next graphic

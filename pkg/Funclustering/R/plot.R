@@ -8,26 +8,20 @@
 #' 
 #' @param time a vector containing the observation time for the curves. If absent the time param will be set
 #' at the vector 1:nrow(curves) 
-#' 
 #' @param curves the observations matrix. Each column of this matrix corresponds to one observed curve, and contains the value of the curve at discrete time points.
-#' 
 #' @param xlab label of the horizontal axis 
-#' 
 #' @param ylab label of the vertical axis
-#' 
 #' @param main the title of the graphic
-#' 
+#' @param ... extra matplot parameters
 #' 			
-#' @export 
 #' @examples 
-#' 
 #' data(growth)
-#' curves=matrix(data=cbind(growth$hgtm,growth$hgtf),ncol=93)
-#' time=growth$age
-#' plotOC(time,curves)
+#' curves <- matrix(data = cbind(growth$hgtm, growth$hgtf), ncol = 93)
+#' time <- growth$age
+#' plotOC(time, curves)
 #' 
-#' 
-plotOC <- function(time=1:nrow(curves),curves,xlab="time",ylab="value",main="Original curves"){
+#' @export 
+plotOC <- function(time = 1:nrow(curves), curves, xlab = "time", ylab = "value", main = "Original curves", ...){
 	#cheking for the parameter curves
 	if(missing(curves)){
 		stop("curves is missing.")
@@ -38,8 +32,8 @@ plotOC <- function(time=1:nrow(curves),curves,xlab="time",ylab="value",main="Ori
 		stop("length(time) must be equal to nrow(curves)")
 	}
 	
-	dev.new()
-	matplot(time,curves,type='l',ylim=c(min(curves)-1,max(curves)+1),xlab=xlab,ylab=ylab,main=main)
+  dev.new()
+	matplot(time,curves,type='l',ylim=c(min(curves)-1,max(curves)+1),xlab=xlab,ylab=ylab,main=main, ...)
 }
 
 
@@ -53,19 +47,14 @@ plotOC <- function(time=1:nrow(curves),curves,xlab="time",ylab="value",main="Ori
 #' @title plot a functional data object
 #' 
 #' @param fd a functional data object
-#' 
 #' @param col the color vector.
-#' 
 #' @param xlab label of the horizontal axis 
-#' 
 #' @param ylab label of the vertical axis
-#' 
 #' @param main the title of the graphic
+#' @param ... extra plot parameters
 #' 
 #' 			
-#' @export 
 #' @examples 
-#' 
 #' data(growth)
 #' data=cbind(matrix(growth$hgtm,31,39),matrix(growth$hgtf,31,54));
 #' t=growth$age;
@@ -74,9 +63,8 @@ plotOC <- function(time=1:nrow(curves),curves,xlab="time",ylab="value",main="Ori
 #' cls=c(rep(1,39),rep(2,54)) #there is 39 boys and 54 girls in this data 
 #' plotfd(fd,col=cls)
 #' 
-#' 
-plotfd <- function(fd,col=c(1:nrow(fd$coefs)),
-		xlab="time",ylab="value",main="Functional data curves") {
+#' @export 
+plotfd <- function(fd, col = 1:nrow(fd$coefs), xlab = "time", ylab = "value", main = "Functional data curves", ...) {
 	#cheking for fd
 	if(missing(fd)){
 		stop("You must give a functional data obj to plot it")
@@ -87,8 +75,8 @@ plotfd <- function(fd,col=c(1:nrow(fd$coefs)),
 		stop(" fd must be a functional data object")
 	}
 	
-	dev.new()
-	plot(fd,col=col,xlab=xlab,ylab=ylab,main=main)
+  dev.new()
+	plot(fd, col = col, xlab = xlab, ylab = ylab, main = main, ...)
 }
 
 

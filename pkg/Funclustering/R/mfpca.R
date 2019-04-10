@@ -6,23 +6,21 @@
 #' 
 #' @param fd in the univariate case fd is an object from a class fd. 
 #' Otherwise in the multivariate case fd is a list of fd object (fd=list(fd1,fd2,..)). 
-#' 
 #' @param nharm number of harmonics or principal component to be retain.
-#' 
 #' @param tik the weights of the functional pca which corresponds to the weights of the curves. 
 #' If don't given, then we will run a classic functional pca (without weighting the curves). 
 #' 
-#' @return When univarite functional data, the function are returning an object of calss "pca.fd", 
-#' When multivariate a list of "pca.fd" object by dimension. The "pca.fd" class contains the folowing parameter:
-#' 			harmonics: functional data object storing the eigen function
-#' 			values: the eigenvalues
-#' 			varprop: the normalized eigenvalues (eigenvalues divide by their sum)
-#' 			scores: the scores matrix  
-#' 			meanfd: the mean of the functional data object
+#' @return When univarite functional data, the function are returning an object of class \code{pca.fd}, 
+#' When multivariate a list of \code{pca.fd} object by dimension. The \code{pca.fd} class contains the folowing parameters:
+#' \itemize{
+#' 			\item harmonics: functional data object storing the eigen function
+#' 			\item values: the eigenvalues
+#' 			\item varprop: the normalized eigenvalues (eigenvalues divide by their sum)
+#' 			\item scores: the scores matrix  
+#' 			\item meanfd: the mean of the functional data object
+#' }
 #' 			
-#' @export 
 #' @examples 
-#' 
 #' data(growth)
 #' data=cbind(matrix(growth$hgtm,31,39),matrix(growth$hgtf,31,54));
 #' t=growth$age;
@@ -31,9 +29,8 @@
 #' pca=mfpca(fd,nharm=2)
 #' summary(pca)
 #' 
-#' @useDynLib Funclustering
-
-mfpca <- function(fd,nharm,tik=numeric(0)) {
+#' @export
+mfpca <- function(fd, nharm, tik = numeric(0)) {
 	#cheking for functional data object
 	if(missing(fd)){
 		stop("fd is missing.")

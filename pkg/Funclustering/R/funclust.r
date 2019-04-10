@@ -18,58 +18,49 @@
 #' 
 #' @param fd in the univariate case fd is an object from a class fd of fda package. 
 #' Otherwise, in the multivariate case, fd is a list of fd objects (fd=list(fd1,fd2,..)). 
-#' 
 #' @param K the number of clusters.
-#' 
 #' @param thd the threshold in the Cattell scree test used to select the numbers of principal components retained for the approximation of the probability density of the functional data.
-#' 
 #' @param increaseDimension A logical parameter. If FALSE, the numbers of principal components are selected at each step of the algorithm according to the Cattell scree test.
 #' If TRUE, only an increase of the numbers of principal components are allowed.  
-#' 
 #' @param hard A logical parameter. If TRUE, the algorithm is randomly initialized with
 #' "hard" cluster membership (each curves is randomly assigned to one of the clusters). 
 #' if FALSE, "soft" cluster membership are used (the cluster membership probabilities are randomly choosen in the K-simplex).
-#' 
 #' @param fixedDimension A vector of size K which contains the numbers of principal components in the case 
 #' of fixed numbers of principal components.  
-#'
-#'  @param epsilon The stoping criterion for the EM-like algorithm: the algorithm is stopped if the difference between 
+#' @param epsilon The stoping criterion for the EM-like algorithm: the algorithm is stopped if the difference between 
 #' 	two successive loglikelihood is less than epsilon.
-#' 
 #' @param nbInit The number of small-EM used to determine the intialization of the main EM-like algorithm.
-#' 
 #' @param nbIterInit The maximum number of iterations for each small-EM.
-#' 
 #' @param nbIteration The maximum number of iteration in the main EM-like algorithm.
-#' 
 #' 
 #' 			
 #' @return a list containing:
-#' tik: conditional probabilities of cluster membership for each observation
-#' cls: the estimated partition,
-#' proportions: the mixing proportions,
-#' loglikelihood: the final value of the approximated likelihood,
-#' loglikTotal: the values of the approximated likelihood along the EM-like algorithm (not necessarily increasing),
-#' aic, bic, icl: model selection criteria,
-#' dimensions: number of principal components, used in the functional data probability density approximation, selected for each clusters,
-#' dimTotal: values of the number of principal components along the EM-like algorithm,
-#' V: principal components variances per cluster
-
+#' \itemize{
+#'   \item tik: conditional probabilities of cluster membership for each observation
+#'   \item cls: the estimated partition,
+#'   \item proportions: the mixing proportions,
+#'   \item loglikelihood: the final value of the approximated likelihood,
+#'   \item loglikTotal: the values of the approximated likelihood along the EM-like algorithm (not necessarily increasing),
+#'   \item aic, bic, icl: model selection criteria,
+#'   \item dimensions: number of principal components, used in the functional data probability density approximation, selected for each clusters,
+#'   \item dimTotal: values of the number of principal components along the EM-like algorithm,
+#'   \item V: principal components variances per cluster
+#' }
 #' 
-#' @export 
 #' @examples 
 #' 
 #' data(growth)
-#' data=cbind(matrix(growth$hgtm,31,39),matrix(growth$hgtf,31,54));
-#' t=growth$age;
-#' splines <- create.bspline.basis(rangeval=c(1, max(t)), nbasis = 20,norder=4);
-#' fd <- Data2fd(data, argvals=t, basisobj=splines);
+#' data <- cbind(matrix(growth$hgtm, 31, 39), matrix(growth$hgtf, 31, 54))
+#' t <- growth$age
+#' splines <- create.bspline.basis(rangeval = c(1, max(t)), nbasis = 20, norder = 4)
+#' fd <- Data2fd(data, argvals = t, basisobj = splines)
+#' 
 #' # with varying dimensions (according to the results of the scree test) 
-#' res=funclust(fd,K=2)
+#' res <- funclust(fd,K=2)
 #' summary(res)
 #' 
 #' # with fixed dimensions
-#' res=funclust(fd,K=2,fixedDimension=c(2,2))
+#' res <- funclust(fd,K=2,fixedDimension=c(2,2))
 #' 
 #' 
 #' # Multivariate (deactivated by default to comply with CRAN policies)
@@ -94,9 +85,7 @@
 #' # res=funclust(CWfd,K=2)
 #' 
 #' 
-#' @useDynLib Funclustering
-
-
+#' @export
 funclust <- function(fd,K,thd=0.05,increaseDimension=FALSE,hard=FALSE,fixedDimension=integer(0),
 		nbInit=5,nbIterInit=20,nbIteration=200,epsilon=1e-5){	
 	#cheking for functional data object
