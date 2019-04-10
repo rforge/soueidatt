@@ -2,13 +2,13 @@
 
 #' @description This function run clustering algorithm for multivariate functional data.
 #' 
-#'@details There is multiple kind of running the function funclust.  
-#' The first one is to run the function with fixed dimensions among all iteration of the algorithm. 
+#'@details There is multiple ways of running the function funclust.  
+#' The first one is to run the function with fixed dimensions among all iterations of the algorithm. 
 #' (parameter fixedDimenstion). fixedDimension must be an integer vector of size K (number of cluster).
 #' If the user gives a not integer value in fixedDimension, then this value will be convert automatically to
 #' an integer one for examplethe, the algorithm will run with a dimension 2 instead of 2.2 given by user. 
 #' The second one is to run it with a dimensions variying according to the results of the scree test
-#' (parameter increaseDimension). If increaseDimension = true, then the dimensions will be constraint to 
+#' (parameter increaseDimension). If increaseDimension = TRUE, then the dimensions will be constraint to 
 #' only increase between to consecutuves iterations of the algorithm. else the values of the dimensions 
 #' will be the results of the scree test.
 #' 
