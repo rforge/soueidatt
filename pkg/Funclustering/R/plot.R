@@ -22,18 +22,18 @@
 #' 
 #' @export 
 plotOC <- function(time = 1:nrow(curves), curves, xlab = "time", ylab = "value", main = "Original curves", ...){
-	#cheking for the parameter curves
-	if(missing(curves)){
-		stop("curves is missing.")
-	}
-	
-	#check if the time and curves parameters are on the right size 
-	if(length(time) != nrow(curves)){
-		stop("length(time) must be equal to nrow(curves)")
-	}
-	
+  #cheking for the parameter curves
+  if(missing(curves)){
+    stop("curves is missing.")
+  }
+  
+  #check if the time and curves parameters are on the right size 
+  if(length(time) != nrow(curves)){
+    stop("length(time) must be equal to nrow(curves)")
+  }
+  
   dev.new()
-	matplot(time,curves,type='l',ylim=c(min(curves)-1,max(curves)+1),xlab=xlab,ylab=ylab,main=main, ...)
+  matplot(time,curves,type='l',ylim=c(min(curves)-1,max(curves)+1),xlab=xlab,ylab=ylab,main=main, ...)
 }
 
 
@@ -56,27 +56,27 @@ plotOC <- function(time = 1:nrow(curves), curves, xlab = "time", ylab = "value",
 #' 			
 #' @examples 
 #' data(growth)
-#' data=cbind(matrix(growth$hgtm,31,39),matrix(growth$hgtf,31,54));
-#' t=growth$age;
-#' splines <- create.bspline.basis(rangeval=c(1, max(t)), nbasis = 20,norder=4);
-#' fd <- Data2fd(data, argvals=t, basisobj=splines);
-#' cls=c(rep(1,39),rep(2,54)) #there is 39 boys and 54 girls in this data 
-#' plotfd(fd,col=cls)
+#' data = cbind(matrix(growth$hgtm, 31, 39), matrix(growth$hgtf, 31, 54))
+#' t = growth$age
+#' splines <- create.bspline.basis(rangeval = c(1, max(t)), nbasis = 20, norder = 4)
+#' fd <- Data2fd(data, argvals= t, basisobj = splines)
+#' cls = c(rep(1, 39), rep(2, 54)) # there is 39 boys and 54 girls in this data 
+#' plotfd(fd, col = cls)
 #' 
 #' @export 
 plotfd <- function(fd, col = 1:nrow(fd$coefs), xlab = "time", ylab = "value", main = "Functional data curves", ...) {
-	#cheking for fd
-	if(missing(fd)){
-		stop("You must give a functional data obj to plot it")
-	}
-	
-	#fd must be from calss "fd"
-	if(class(fd) != "fd"){
-		stop(" fd must be a functional data object")
-	}
-	
+  #cheking for fd
+  if(missing(fd)){
+    stop("You must give a functional data obj to plot it")
+  }
+  
+  #fd must be from calss "fd"
+  if(class(fd) != "fd"){
+    stop("fd must be a functional data object")
+  }
+  
   dev.new()
-	plot(fd, col = col, xlab = xlab, ylab = ylab, main = main, ...)
+  plot(fd, col = col, xlab = xlab, ylab = ylab, main = main, ...)
 }
 
 

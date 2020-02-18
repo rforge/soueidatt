@@ -4,12 +4,21 @@
 \alias{funclust}
 \title{funclust, clustering multivariate functional data}
 \usage{
-funclust(fd, K, thd = 0.05, increaseDimension = FALSE, hard = FALSE,
-  fixedDimension = integer(0), nbInit = 5, nbIterInit = 20,
-  nbIteration = 200, epsilon = 1e-05)
+funclust(
+  fd,
+  K,
+  thd = 0.05,
+  increaseDimension = FALSE,
+  hard = FALSE,
+  fixedDimension = integer(0),
+  nbInit = 5,
+  nbIterInit = 20,
+  nbIteration = 200,
+  epsilon = 1e-05
+)
 }
 \arguments{
-\item{fd}{in the univariate case fd is an object from a class fd of fda package. 
+\item{fd}{in the univariate case fd is an object from a class fd of fda package.
 Otherwise, in the multivariate case, fd is a list of fd objects (fd=list(fd1,fd2,..)).}
 
 \item{K}{the number of clusters.}
@@ -20,10 +29,10 @@ Otherwise, in the multivariate case, fd is a list of fd objects (fd=list(fd1,fd2
 If TRUE, only an increase of the numbers of principal components are allowed.}
 
 \item{hard}{A logical parameter. If TRUE, the algorithm is randomly initialized with
-"hard" cluster membership (each curves is randomly assigned to one of the clusters). 
+"hard" cluster membership (each curves is randomly assigned to one of the clusters).
 if FALSE, "soft" cluster membership are used (the cluster membership probabilities are randomly choosen in the K-simplex).}
 
-\item{fixedDimension}{A vector of size K which contains the numbers of principal components in the case 
+\item{fixedDimension}{A vector of size K which contains the numbers of principal components in the case
 of fixed numbers of principal components.}
 
 \item{nbInit}{The number of small-EM used to determine the intialization of the main EM-like algorithm.}
@@ -32,7 +41,7 @@ of fixed numbers of principal components.}
 
 \item{nbIteration}{The maximum number of iteration in the main EM-like algorithm.}
 
-\item{epsilon}{The stoping criterion for the EM-like algorithm: the algorithm is stopped if the difference between 
+\item{epsilon}{The stoping criterion for the EM-like algorithm: the algorithm is stopped if the difference between
 two successive loglikelihood is less than epsilon.}
 }
 \value{
@@ -53,14 +62,14 @@ a list containing:
 This function run clustering algorithm for multivariate functional data.
 }
 \details{
-There is multiple ways of running the function funclust.  
-The first one is to run the function with fixed dimensions among all iterations of the algorithm. 
+There is multiple ways of running the function funclust.
+The first one is to run the function with fixed dimensions among all iterations of the algorithm.
 (parameter fixedDimenstion). fixedDimension must be an integer vector of size K (number of cluster).
 If the user gives a not integer value in fixedDimension, then this value will be convert automatically to
-an integer one for examplethe, the algorithm will run with a dimension 2 instead of 2.2 given by user. 
+an integer one for examplethe, the algorithm will run with a dimension 2 instead of 2.2 given by user.
 The second one is to run it with a dimensions variying according to the results of the scree test
-(parameter increaseDimension). If increaseDimension = TRUE, then the dimensions will be constraint to 
-only increase between to consecutuves iterations of the algorithm. else the values of the dimensions 
+(parameter increaseDimension). If increaseDimension = TRUE, then the dimensions will be constraint to
+only increase between to consecutuves iterations of the algorithm. else the values of the dimensions
 will be the results of the scree test.
 }
 \examples{
@@ -71,34 +80,30 @@ t <- growth$age
 splines <- create.bspline.basis(rangeval = c(1, max(t)), nbasis = 20, norder = 4)
 fd <- Data2fd(data, argvals = t, basisobj = splines)
 
-# with varying dimensions (according to the results of the scree test) 
-res <- funclust(fd,K=2)
+# with varying dimensions (according to the results of the scree test)
+res <- funclust(fd, K = 2)
 summary(res)
 
+\donttest{
 # with fixed dimensions
-res <- funclust(fd,K=2,fixedDimension=c(2,2))
+res <- funclust(fd, K = 2, fixedDimension = c(2, 2))
 
-
-# Multivariate (deactivated by default to comply with CRAN policies)
+# Multivariate (deactivated due to run time)
 # ---------  CanadianWeather (data from the package fda) --------
-# CWtime<- 1:365
-# CWrange<-c(1,365)
-# CWbasis <- create.fourier.basis(CWrange, nbasis=65)
-# harmaccelLfd <- vec2Lfd(c(0,(2*pi/365)^2,0), rangeval=CWrange)
+CWtime <- 1:365
+CWrange <- c(1, 365)
+CWbasis <- create.fourier.basis(CWrange, nbasis = 65)
+harmaccelLfd <- vec2Lfd(c(0, (2 * pi / 365)^2, 0), rangeval = CWrange)
 
 # -- Build the curves ---
-# temp=CanadianWeather$dailyAv[,,"Temperature.C"]
-# CWfd1 <- smooth.basisPar(
-# CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, 
-# Lfdobj=harmaccelLfd, lambda=1e-2)$fd
-# precip=CanadianWeather$dailyAv[,,"Precipitation.mm"]
-# CWfd2 <- smooth.basisPar(
-# CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, 
-# Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+temperature <- CanadianWeather$dailyAv[, , "Temperature.C"]
+CWfd1 <- smooth.basisPar(CWtime, temperature, CWbasis, Lfdobj = harmaccelLfd, lambda = 1e-2)$fd
+precip <- CanadianWeather$dailyAv[, , "Precipitation.mm"]
+CWfd2 <- smooth.basisPar(CWtime, precip, CWbasis, Lfdobj = harmaccelLfd, lambda = 1e-2)$fd
 
-# CWfd=list(CWfd1,CWfd2) 
+CWfd <- list(CWfd1, CWfd2)
 
-# res=funclust(CWfd,K=2)
-
+res <- funclust(CWfd, K = 2)
+}
 
 }

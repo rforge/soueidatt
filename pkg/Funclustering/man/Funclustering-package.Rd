@@ -10,8 +10,8 @@ The parametric mixture model, based on the assumption of normality of the princi
 The main advantage of the proposed algorithm is its ability to take into account the dependence among curves.
 }
 \details{
-This package included a function named \link{funclust} which allow to perform functional data clustering. 
-This package allows also to perform a functional PCA (function \link{mfpca}) for univariate or multivariate functional data, with possibility to define different weights for each observation.  
+This package included a function named \link{funclust} which allow to perform functional data clustering.
+This package allows also to perform a functional PCA (function \link{mfpca}) for univariate or multivariate functional data, with possibility to define different weights for each observation.
 The output of funclust and mfpca are a list, so one can use summary() to display the results.
 We can also plot the original curves with function \link{plotOC}. The function \link{plotfd} plots the curves after interpolation or smoothing.
 See the help of theses functions for more details.
@@ -20,22 +20,22 @@ See the help of theses functions for more details.
 # Multivariate
 # ---------  CanadianWeather (data from the fda package) --------
 CWtime <- 1:365
-CWrange <-c(1,365)
+CWrange <- c(1, 365)
 CWbasis <- create.fourier.basis(CWrange, nbasis = 65)
-harmaccelLfd <- vec2Lfd(c(0,(2*pi/365)^2,0), rangeval = CWrange)
+harmaccelLfd <- vec2Lfd(c(0, (2 * pi / 365)^2, 0), rangeval = CWrange)
 
 # -- Build the curves --
-temperature <- CanadianWeather$dailyAv[,,"Temperature.C"]
+temperature <- CanadianWeather$dailyAv[, , "Temperature.C"]
 CWfd1 <- smooth.basisPar(CWtime, temperature, CWbasis, Lfdobj = harmaccelLfd, lambda = 1e-2)$fd
-precipitation <- CanadianWeather$dailyAv[,,"Precipitation.mm"]
+precipitation <- CanadianWeather$dailyAv[, , "Precipitation.mm"]
 CWfd2 <- smooth.basisPar(CWtime, precipitation, CWbasis, Lfdobj = harmaccelLfd, lambda = 1e-2)$fd
 
-CWfd <- list(CWfd1, CWfd2) 
+# -- the multivariate functional data object --
+CWfd <- list(CWfd1, CWfd2)
 
-# -- clustering in two class -- 
+# -- clustering in two class --
 res <- funclust(CWfd, K = 2)
 summary(res)
-
 }
 \references{
 J.Jacques and C.Preda (2013), Funclust: a curves clustering method using functional random variable density approximation, Neurocomputing, 112, 164-171.

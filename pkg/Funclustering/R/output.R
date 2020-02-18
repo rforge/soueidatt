@@ -23,33 +23,33 @@
 # @exportClass Output
 #
 setClass(
-		Class="Output",
-		representation = representation(
-				tik="matrix",
-				cls= "numeric",
-				proportions = "matrix",
-				loglikelihood = "numeric",
-				loglikTotal="numeric",
-				aic="numeric",
-				bic="numeric",
-				icl="numeric",
-				dimensions="numeric",
-				dimTotal="matrix",
-				V="matrix",
-				empty="logical"
-		),
-		prototype = prototype(
-				tik=matrix(nrow=0,ncol=0),
-				cls= numeric(0),
-				proportions = matrix(nrow=0,ncol=0),
-				loglikelihood = numeric(0),
-				loglikTotal=numeric(0),
-				aic=numeric(0),
-				bic=numeric(0),
-				icl=numeric(0),
-				dimensions=numeric(0),
-				dimTotal=matrix(nrow=0,ncol=0),
-				V=matrix(nrow=0,ncol=0),
-				empty=FALSE
-		)
+  Class = "Output",
+  representation = representation(
+    tik = "matrix",
+    cls = "numeric",
+    proportions = "matrix",
+    loglikelihood = "numeric",
+    loglikTotal = "numeric",
+    aic = "numeric",
+    bic = "numeric",
+    icl = "numeric",
+    dimensions = "numeric",
+    dimTotal = "matrix",
+    V = "matrix",
+    empty = "logical"
+  ),
+  prototype = prototype(
+    tik = matrix(nrow = 0, ncol = 0),
+    cls = numeric(0),
+    proportions = matrix(nrow = 0, ncol = 0),
+    loglikelihood = numeric(0),
+    loglikTotal = numeric(0),
+    aic = numeric(0),
+    bic = numeric(0),
+    icl = numeric(0),
+    dimensions = numeric(0),
+    dimTotal = matrix(nrow = 0, ncol = 0),
+    V = matrix(nrow = 0, ncol = 0),
+    empty = FALSE
+  )
 )

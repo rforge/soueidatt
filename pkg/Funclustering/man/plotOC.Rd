@@ -4,8 +4,14 @@
 \alias{plotOC}
 \title{plot Original Curves}
 \usage{
-plotOC(time = 1:nrow(curves), curves, xlab = "time", ylab = "value",
-  main = "Original curves", ...)
+plotOC(
+  time = 1:nrow(curves),
+  curves,
+  xlab = "time",
+  ylab = "value",
+  main = "Original curves",
+  ...
+)
 }
 \arguments{
 \item{time}{a vector containing the observation time for the curves. If absent the time param will be set

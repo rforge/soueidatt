@@ -20,4 +20,4 @@ Depends: fda (>= 2.2.6), R (>= 2.15.1), methods
 Imports: Rcpp (>= 0.11)
 LinkingTo: Rcpp, RcppEigen
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
