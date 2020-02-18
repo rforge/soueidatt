@@ -13,11 +13,11 @@ Otherwise in the multivariate case fd is a list of fd object (fd=list(fd1,fd2,..
 \item{nharm}{number of harmonics or principal component to be retain.}
 
 \item{tik}{the weights of the functional pca which corresponds to the weights of the curves.
-If don't given, then we will run a classic functional pca (without weighting the curves).}
+If not given, a classic functional pca (without weighting the curves) is performed.}
 }
 \value{
-When univarite functional data, the function are returning an object of class \code{pca.fd},
-When multivariate a list of \code{pca.fd} object by dimension. The \code{pca.fd} class contains the folowing parameters:
+With univariate functional data, the function returns an object of class \code{pca.fd},
+With multivariate data, a list of \code{pca.fd} object is returned. The \code{pca.fd} class contains the folowing parameters:
 \itemize{
 		\item harmonics: functional data object storing the eigen function
 		\item values: the eigenvalues
@@ -27,7 +27,7 @@ When multivariate a list of \code{pca.fd} object by dimension. The \code{pca.fd}
 }
 }
 \description{
-This function will run a weighted functional pca in the univariate and multivariate cases.
+This function runs a weighted functional pca in the univariate and multivariate cases.
 If the observations (the curves) are given with weights, set up the parameter tik.
 }
 \examples{

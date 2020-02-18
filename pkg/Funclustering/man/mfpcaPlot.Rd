@@ -7,9 +7,9 @@
 mfpcaPlot(pca, grid = c())
 }
 \arguments{
-\item{pca}{is the result of mfpca. In the univariate case mfpcaPlot use the package fda
-and will be similar to it's function "plot.pca.fd".
-In multivariate functional pca, we will make a graphic window for each dimension.}
+\item{pca}{is the result of \code{\link{mfpca}}. In the univariate case, \code{mfpcaPlot} uses the \code{fda} package
+and is similar to its \code{plot.pca.fd} function.
+In the multivariate case, we will make a graphic window for each dimension.}
 
 \item{grid}{specify how to divide the graphics window. grid=c(n,m) divided the widow in to n lines and
 m columns. If user don't specify grid then he must enter <Enter> to pass to the next graphic.}

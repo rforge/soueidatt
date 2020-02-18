@@ -7,7 +7,7 @@
 #' @aliases Funclustering-package
 #' @name Funclustering-package
 #' @description
-#' This packages proposes a model-based clustering algorithm for multivariate functional data.
+#' This package proposes a model-based clustering algorithm for multivariate functional data.
 #' The parametric mixture model, based on the assumption of normality of the principal components resulting from a multivariate functional PCA, is estimated by an EM-like algorithm.
 #' The main advantage of the proposed algorithm is its ability to take into account the dependence among curves.
 #'
