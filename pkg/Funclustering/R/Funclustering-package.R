@@ -1,5 +1,4 @@
 #' @importFrom graphics par plot
-#' @importFrom grDevices dev.new
 #' @import Rcpp fda methods
 #' @useDynLib Funclustering
 #'

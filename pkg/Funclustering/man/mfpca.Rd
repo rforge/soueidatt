@@ -2,10 +2,7 @@
 % Please edit documentation in R/mfpca.R
 \name{mfpca}
 \alias{mfpca}
-\title{Multivariate functional pca
-
-This function will run a weighted functional pca in the univariate and multivariate cases.
-If the observations (the curves) are given with weights, set up the parameter tik.}
+\title{Multivariate functional pca}
 \usage{
 mfpca(fd, nharm, tik = numeric(0))
 }
@@ -30,8 +27,6 @@ When multivariate a list of \code{pca.fd} object by dimension. The \code{pca.fd}
 }
 }
 \description{
-Multivariate functional pca
-
 This function will run a weighted functional pca in the univariate and multivariate cases.
 If the observations (the curves) are given with weights, set up the parameter tik.
 }

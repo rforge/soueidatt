@@ -1,9 +1,8 @@
 
-#'
-#' This function plots the observed curves, before any action 
-#' of smoothing or interpolation.
-#' 
 #' @title plot Original Curves 
+#'
+#' @description This function plots the observed curves, before any action 
+#' of smoothing or interpolation.
 #' 
 #' 
 #' @param time a vector containing the observation time for the curves. If absent the time param will be set
@@ -32,20 +31,16 @@ plotOC <- function(time = 1:nrow(curves), curves, xlab = "time", ylab = "value",
     stop("length(time) must be equal to nrow(curves)")
   }
   
-  dev.new()
-  matplot(time,curves,type='l',ylim=c(min(curves)-1,max(curves)+1),xlab=xlab,ylab=ylab,main=main, ...)
+  matplot(time, curves, type = 'l', ylim = c(min(curves) - 1, max(curves) + 1), xlab = xlab, ylab = ylab, main = main, ...)
 }
 
 
-
+#' @title plot a functional data object
 #' 
-#' This function plots a functional data object (after smoothing or interpolation).
+#' @description This function plots a functional data object (after smoothing or interpolation).
 #' If you want to color the curves according to a cluster's membership, please specify the parmetere col.  
 #' Note: this function works only for univariate functional data.
 #'
-#'  
-#' @title plot a functional data object
-#' 
 #' @param fd a functional data object
 #' @param col the color vector.
 #' @param xlab label of the horizontal axis 
@@ -75,7 +70,6 @@ plotfd <- function(fd, col = 1:nrow(fd$coefs), xlab = "time", ylab = "value", ma
     stop("fd must be a functional data object")
   }
   
-  dev.new()
   plot(fd, col = col, xlab = xlab, ylab = ylab, main = main, ...)
 }
 

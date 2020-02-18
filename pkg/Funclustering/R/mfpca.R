@@ -1,6 +1,6 @@
 #' @title Multivariate functional pca
 #'
-#' This function will run a weighted functional pca in the univariate and multivariate cases.
+#' @description This function will run a weighted functional pca in the univariate and multivariate cases.
 #' If the observations (the curves) are given with weights, set up the parameter tik.
 #' 
 #' @param fd in the univariate case fd is an object from a class fd.

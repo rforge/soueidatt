@@ -1,5 +1,6 @@
 
-
+#' @title funclust, clustering multivariate functional data
+#'
 #' @description This function run clustering algorithm for multivariate functional data.
 #'
 #' @details There is multiple ways of running the function funclust.
@@ -12,8 +13,6 @@
 #' only increase between to consecutuves iterations of the algorithm. else the values of the dimensions
 #' will be the results of the scree test.
 #'
-#'
-#' @title funclust, clustering multivariate functional data
 #'
 #'
 #' @param fd in the univariate case fd is an object from a class fd of fda package.

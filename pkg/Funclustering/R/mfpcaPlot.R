@@ -1,9 +1,7 @@
 
-#'
-#' This function plots the functional pca.
-#'
 #' @title Plot multivariate functional pca
 #'
+#' @description This function plots the functional pca.
 #'
 #' @param pca is the result of mfpca. In the univariate case mfpcaPlot use the package fda
 #' and will be similar to it's function "plot.pca.fd".
@@ -44,7 +42,7 @@ mfpcaPlot <- function(pca, grid = c()) {
     }
     # else we divide the graphic window according to the grid parameter
     else {
-      dev.new()
+      #dev.new()
       par(mfrow = grid)
       plot.pca.fd(pca)
     }
@@ -56,7 +54,7 @@ mfpcaPlot <- function(pca, grid = c()) {
     for (i in 1:dimFd) {
       cat("\n", "Dimension ", i, " of the functional data", "\n")
       # new window for each dimension
-      dev.new() # attention to the very large dimensions
+      #dev.new() # attention to the very large dimensions
       
       # if the user don't specify grid, he must enter <Enter> to pass to the next graphic
       if (length(grid) == 0) {
